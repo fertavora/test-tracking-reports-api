@@ -1,0 +1,26 @@
+{
+  "name": "test-tracking-reports-api",
+  "version": "0.0.1",
+  "description": "The API to get reports information from data storage",
+  "main": "api.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node api.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fertavora/test-tracking-reports-api.git"
+  },
+  "author": "Fernando Távora",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fertavora/test-tracking-reports-api/issues"
+  },
+  "homepage": "https://github.com/fertavora/test-tracking-reports-api#readme",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "mongodb": "^2.2.10",
+    "winston": "^2.2.0"
+  }
+}
