@@ -3,7 +3,6 @@
  */
 
 var express = require('express');
-var bodyParser = require('body-parser');
 var logger = require('./logger');
 var app = express();
 var app_port = 3000;
@@ -57,7 +56,45 @@ app.get('/features', function(req, res){
         logger.info('Unauthorized');
         unauthorizedResponse(res);
     }
-})
+});
+
+app.get('/features/:id', function(req, res){
+    logger.info("GET /features/"+req.params.id);
+    var id = req.params.id;
+    if(req.header('authorization')){
+        if(authenticateCredentials(req.header('authorization'))){
+            var mongo = require('./MongoHelper');
+            mongo.getFeature(id).then(function(d){
+                res.status(200).send(d);
+            });
+        }else{
+            logger.info('Unauthorized');
+            unauthorizedResponse(res);
+        }
+    }else{
+        logger.info('Unauthorized');
+        unauthorizedResponse(res);
+    }
+});
+
+app.get('/features/:id/elements', function(req, res){
+    logger.info("GET /features/"+req.params.id);
+    var id = req.params.id;
+    if(req.header('authorization')){
+        if(authenticateCredentials(req.header('authorization'))){
+            var mongo = require('./MongoHelper');
+            mongo.getElements(id).then(function(d){
+                res.status(200).send(d);
+            });
+        }else{
+            logger.info('Unauthorized');
+            unauthorizedResponse(res);
+        }
+    }else{
+        logger.info('Unauthorized');
+        unauthorizedResponse(res);
+    }
+});
 
 logger.info('>>> API STARTED <<<');
 var server = app.listen(process.env.PORT || app_port);

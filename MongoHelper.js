@@ -29,5 +29,35 @@ module.exports = {
                 })
             })
         })
+    },
+
+    getFeature: function(f){
+        return new Promise(function(fulfill, reject){
+            var MongoClient = require('mongodb');
+            var ObjectId = MongoClient.ObjectId(f);
+
+            MongoClient.connect(mongo_connection_string, function(err, db){
+                var collection = db.collection('reports');
+                collection.find({"_id": ObjectId}).toArray(function(err, docs){
+                    db.close();
+                    fulfill(docs);
+                })
+            })
+        })
+    },
+
+    getElements: function(f){
+        return new Promise(function(fulfill, reject){
+            var MongoClient = require('mongodb');
+            var ObjectId = MongoClient.ObjectId(f);
+
+            MongoClient.connect(mongo_connection_string, function(err, db){
+                var collection = db.collection('reports');
+                collection.find({"_id": ObjectId}, {"_id": 0, "elements": 1}).toArray(function(err, docs){
+                    db.close();
+                    fulfill(docs);
+                })
+            })
+        })
     }
 }
